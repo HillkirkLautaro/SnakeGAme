@@ -1,0 +1,27 @@
+# Visual Studio / .NET build outputs
+bin/
+obj/
+
+# Rider caches
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+*.dll
+*.exe
+*.pdb
+*.cache
+
+# NuGet packages
+*.nupkg
+.nuget/
+
+# ASP.NET temporary files
+*.log
+*.vs/
+
+# Mac/Linux files
+.DS_Store
