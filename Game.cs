@@ -22,6 +22,7 @@ class Game
     public void Run()
     {
         Console.CursorVisible = false;
+        Console.Clear();
 
         while (!gameOver)
         {
@@ -31,9 +32,9 @@ class Game
             Thread.Sleep(speed);
         }
 
-        Console.SetCursorPosition(0, height + 2);
-        Console.WriteLine($"Game Over - Score: {score}");
-        Console.WriteLine("Presiona una tecla para volver al menú...");
+        Console.WriteLine();
+        Console.WriteLine("Game Over");
+        Console.WriteLine("Press any key...");
         Console.ReadKey();
     }
 
@@ -68,27 +69,50 @@ class Game
     }
 
     private void Draw()
+{
+    Console.SetCursorPosition(0, 0);
+
+    string pad = GetPadding();
+    string output = "";
+
+    // borde superior
+    output += pad + new string('#', width + 2) + "\n";
+
+    for (int y = 0; y < height; y++)
     {
-        Console.SetCursorPosition(0, 0);
+        output += pad + "#";
 
-        for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
         {
-            for (int x = 0; x < width; x++)
-            {
-                var pos = (x, y);
+            var pos = (x, y);
 
-                if (snake.IsHead(pos))
-                    Console.Write("O");
-                else if (snake.IsBody(pos))
-                    Console.Write("o");
-                else if (food.Position == pos)
-                    Console.Write("*");
-                else
-                    Console.Write(" ");
-            }
-            Console.WriteLine();
+            if (snake.IsHead(pos))
+                output += "O";
+            else if (snake.IsBody(pos))
+                output += "o";
+            else if (food.Position == pos)
+                output += "*";
+            else
+                output += " ";
         }
 
-        Console.WriteLine($"Score: {score}");
+        output += "#\n";
+    }
+
+    // borde inferior
+    output += pad + new string('#', width + 2) + "\n\n";
+
+    output += pad + $"Score: {score}";
+
+    Console.Write(output);
+}
+
+    private string GetPadding()
+    {
+        int consoleWidth = Console.WindowWidth;
+        int gameWidth = width + 2;
+
+        int padding = Math.Max((consoleWidth - gameWidth) / 2, 0);
+        return new string(' ', padding);
     }
 }
