@@ -33,6 +33,8 @@ class Game
 
         Console.SetCursorPosition(0, height + 2);
         Console.WriteLine($"Game Over - Score: {score}");
+        Console.WriteLine("Presiona una tecla para volver al menú...");
+        Console.ReadKey();
     }
 
     private void HandleInput()
